@@ -1,5 +1,5 @@
 <div>
-  <nav class="bg-white dark:bg-gray-800  shadow ">
+  <nav class="bg-white dark:bg-gray-800 ">
     <div class="max-w-7xl mx-auto px-8">
       <div class="flex items-center justify-between h-16">
         <div class="w-full justify-between flex items-center">
@@ -10,19 +10,23 @@
             <div class="ml-10 flex items-baseline space-x-4">
               <a class="text-gray-400  hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md  font-medium"
                 href="/#">
-                Home
+                QR Builder
               </a>
               <a class="text-gray-400 dark:text-white  hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md  font-medium"
                 href="/#">
-                Gallery
+                Phone
               </a>
               <a class="text-gray-400  hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md  font-medium"
                 href="/#">
-                Content
+                SMS
               </a>
               <a class="text-gray-400  hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md  font-medium"
                 href="/#">
-                Contact
+                Email
+              </a>
+              <a class="text-gray-400  hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md  font-medium"
+                href="/#">
+                GEO
               </a>
             </div>
           </div>

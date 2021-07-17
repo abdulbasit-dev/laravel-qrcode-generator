@@ -2,36 +2,47 @@
 @section('home', 'active')
 @section('content')
 
+<section class="text-gray-600 body-font overflow-hidden">
+  <div class="container px-40 py-24 mx-auto">
+    <div class="flex flex-wrap -m-12">
+      <div class="p-12 md:w-2/3 ">
 
-<div class="bg-white dark:bg-gray-800  ">
-  <div class="text-center w-full mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 z-20">
-    <h2 class="text-3xl font-extrabold text-black dark:text-white sm:text-4xl">
-      <span class="block">
-        Want to be millionaire ?
-      </span>
-      <span class="block text-indigo-500">
-        It&#x27;s today or never.
-      </span>
-    </h2>
-    <div class="lg:mt-0 lg:flex-shrink-0">
-      <div class="mt-12 inline-flex rounded-md shadow">
-        <button type="button"
-          class="py-4 px-6  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
-          Get started
-        </button>
+        <form action="{{ route('qrCodeGenerator') }}" method="POST">
+          @csrf
+          <div class="w-2/3 mb-6">
+            <label for="name" class="pb-12 text-xl">Name</label>
+            <input type="text" id="name" name="name" placeholder="enter name"
+              value="{{ old('name') }}"
+              class="rounded border-transparent flex-1  appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-lg mt-2 focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-transparent" />
+            @error('name')
+            <small class="text-red-500 text-sm mt-1">{{ $message }}</small>
+            @enderror
+          </div>
+          <div class="w-2/3 mb-6">
+            <label for="body" class="pb-12 text-xl">Body</label>
+            <textarea type="text" id="body" name="body" rows="4" placeholder="enter name"
+              class="rounded border-transparent flex-1 resize-none appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-lg mt-2 focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-transparent">{{ old('body') }}</textarea>
+            @error('body')
+            <small class="text-red-500 text-sm mt-1">{{ $message }}</small>
+            @enderror
+          </div>
+
+          <button type="submit"
+            class="py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-1/3 transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-1 focus:ring-offset-1  rounded ">
+            Generate QR Code
+          </button>
+        </form>
       </div>
-      <div class="flex justify-center mt-12">
+      <div class="p-12 md:w-1/3 flex flex-col items-center">
 
-        {{-- {{ QrCode::eyeColor(1 , 55, 65, 235, 23, 100, 55)->size(300)->style('round')->margin(1)->merge('https://rsvpify.com/wp-content/uploads/2017/03/rsvpify-logo-header-rsvp.png')->generate('fuck you ..........................')}}
-        --}}
-
-        {{-- {{  QrCode::BTC('bitcoin address', 0.334)}} --}}
-        {{ QrCode::email('foo@bar.com', 'This is the subject.', 'This is the message body.') }}
-
-
+        <h2 class="sm:text-3xl text-2xl title-font font-medium text-gray-900 mt-4 mb-4">Qr Code
+          Preview</h2>
+        @if (Session::has('code'))
+        {{ Session::get('code') }}
+        @endif
       </div>
     </div>
   </div>
-</div>
+</section>
 
 @endsection

@@ -14,3 +14,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'QrcodeController@index');
+Route::post('/qr-code', 'QrcodeController@qrCodeGenerator')->name('qrCodeGenerator');

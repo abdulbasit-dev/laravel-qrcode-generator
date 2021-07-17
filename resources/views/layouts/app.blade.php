@@ -16,6 +16,9 @@
   <link rel="stylesheet" href="{{ asset('css/admin_custom.css') }}">
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
+  {{-- toaster --}}
+  <link rel="stylesheet" href="{{ asset('assets/lib/toaster/toastr.min.css') }}">
+
 </head>
 
 <body class="antialiased">
@@ -25,7 +28,25 @@
   @yield('content')
 
   <script src="{{ asset('js/app.js')}}"></script>
+  {{-- Jquery --}}
+  <script src="{{ asset('assets/lib/jquery.min.js') }}"></script>
+  {{-- toaster --}}
+  <script src="{{ asset('assets/lib/toaster/toastr.min.js') }}">
+  </script>
+
+
   @stack('scripts')
+  <script>
+    @if(Session::has('message'))
+      toastr.options =
+      {
+      	"closeButton" : true,
+      	"progressBar" : true
+      }
+      		toastr.{{ session('type') }}("{{ session('message') }}");
+      @endif
+    
+  </script>
 </body>
 
 </html>

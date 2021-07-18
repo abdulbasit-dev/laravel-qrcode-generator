@@ -9,23 +9,23 @@
           <div class="hidden md:block">
             <div class="ml-10 flex items-baseline space-x-4">
               <a class="text-gray-400  hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md  font-medium"
-                href="/#">
+                href="{{ route('qr.builder') }}">
                 QR Builder
               </a>
               <a class="text-gray-400 dark:text-white  hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md  font-medium"
-                href="/#">
+                href="{{ route('qr.phone') }}">
                 Phone
               </a>
               <a class="text-gray-400  hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md  font-medium"
-                href="/#">
+                href="{{ route('qr.sms') }}">
                 SMS
               </a>
               <a class="text-gray-400  hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md  font-medium"
-                href="/#">
+                href="{{ route('qr.email') }}">
                 Email
               </a>
               <a class="text-gray-400  hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md  font-medium"
-                href="/#">
+                href="{{ route('qr.geo') }}">
                 GEO
               </a>
             </div>

@@ -2,238 +2,32 @@
 @section('home', 'active')
 @section('content')
 
-<section class="text-gray-600 body-font overflow-hidden border">
+<section class="text-gray-600 body-font overflow-hidden border-t">
   <div class="container px-40 py-12 mx-auto">
-    <div class="flex flex-wrap -m-12 items-start">
+    <h1 class="text-3xl mb-12 text-gray-800 ">Build SMS QR Code</h1>
+    <div class="flex flex-wrap -m-12 items-center">
       <div class="p-12 md:w-2/3 ">
-
-        <form action="{{ route('qr.builder') }}" method="POST">
+        <form action="{{ route('qr.sms') }}" method="POST">
           @csrf
           <div class="w-2/3 mb-6">
-            <label for="name" class="pb-12 text-base">Name</label>
-            <input type="text" id="name" name="name" placeholder="enter name"
+            <label for="phone" class="pb-12 text-base">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="Enter Phone Number"
               value="{{ old('name') }}"
               class="rounded border-transparent flex-1  appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base mt-2 focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-transparent" />
-            @error('name')
+            @error('phone')
             <small class="text-red-500 text-sm mt-1">{{ $message }}</small>
             @enderror
           </div>
+
           <div class="w-2/3 mb-6">
-            <label for="body" class="pb-12 text-base">Body</label>
-            <textarea type="text" id="body" name="body" rows="4" placeholder="enter body"
+            <label for="body" class="pb-12 text-base">Message</label>
+            <textarea type="text" id="body" name="body" rows="4" placeholder="enter the  message"
               class="rounded border-transparent flex-1 resize-none appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base mt-2 focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-transparent">{{ old('body') }}</textarea>
             @error('body')
             <small class="text-red-500 text-sm mt-1">{{ $message }}</small>
             @enderror
           </div>
 
-          <hr>
-
-
-          <div class="grid grid-cols-4 gap-4  my-6">
-            <div>
-              <label for="size" class="pb-12 text-base">QR Size</label>
-              <select id="size" name="size"
-                class="w-full h-10 pl-3 pr-6 mt-2 text-base text-gray-700  border shadow-sm border-gray-300 rounded appearance-none  focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-transparent">
-                <option value="">Select Size</option>
-                <option value="200">200x200</option>
-                <option value="400">400x400</option>
-                <option value="800">800x800</option>
-              </select>
-            </div>
-            <div>
-              <label for="type" class="pb-12 text-base">Image Type</label>
-              <select id="type" name="type"
-                class="w-full h-10 pl-3 pr-6 mt-2 text-base text-gray-700  border shadow-sm border-gray-300 rounded appearance-none  focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-transparent">
-                <option value="">Select Type</option>
-                <option value="svg">PNG</option>
-                <option value="png">SVG</option>
-                {{-- <option value="eps">EPS</option> --}}
-              </select>
-            </div>
-            <div>
-              <label for="correction" class="pb-12 text-base">QR Correction</label>
-              <select id="correction" name="correction"
-                class="w-full h-10 pl-3 pr-6 mt-2 text-base text-gray-700  border shadow-sm border-gray-300 rounded appearance-none  focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-transparent">
-                <option value="">Select Correction</option>
-                <option value="L">7%</option>
-                <option value="M">15%</option>
-                <option value="Q">25%</option>
-                <option value="H">30%</option>
-              </select>
-            </div>
-            <div>
-              <label for="encoding" class="pb-12 text-base">QR Encoding</label>
-              <select id="encoding" name="encoding"
-                class="w-full h-10 pl-3 pr-6 mt-2 text-base text-gray-700  border shadow-sm border-gray-300 rounded appearance-none  focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-transparent">
-                <option value="">Select Encoding</option>
-                <option value="">Select QR Encoding</option>
-                <option value="UTF-8">UTF-8</option>
-                <option value="ISO-8859-1">ISO-8859-1</option>
-                <option value="ISO-8859-2">ISO-8859-2</option>
-                <option value="ISO-8859-3">ISO-8859-3</option>
-                <option value="ISO-8859-4">ISO-8859-4</option>
-                <option value="ISO-8859-5">ISO-8859-5</option>
-                <option value="ISO-8859-6">ISO-8859-6</option>
-                <option value="ISO-8859-7">ISO-8859-7</option>
-                <option value="ISO-8859-8">ISO-8859-8</option>
-                <option value="ISO-8859-9">ISO-8859-9</option>
-                <option value="ISO-8859-10">ISO-8859-10</option>
-                <option value="ISO-8859-11">ISO-8859-11</option>
-                <option value="ISO-8859-12">ISO-8859-12</option>
-                <option value="ISO-8859-13">ISO-8859-13</option>
-                <option value="ISO-8859-14">ISO-8859-14</option>
-                <option value="ISO-8859-15">ISO-8859-15</option>
-                <option value="ISO-8859-16">ISO-8859-16</option>
-                <option value="SHIFT-JIS">SHIFT-JIS</option>
-                <option value="WINDOWS-1250">WINDOWS-1250</option>
-                <option value="WINDOWS-1251">WINDOWS-1251</option>
-                <option value="WINDOWS-1252">WINDOWS-1252</option>
-                <option value="WINDOWS-1256">WINDOWS-1256</option>
-                <option value="UTF-16BE">UTF-16BE</option>
-                <option value="ASCII">ASCII</option>
-                <option value="GBK">GBK</option>
-                <option value="EUC-KR">EUC-KR</option>
-              </select>
-            </div>
-
-          </div>
-
-          <div class="grid grid-cols-4 gap-4  my-6">
-            <div>
-              <label for="eye_style" class="pb-12 text-base">QR Eye</label>
-              <select id="eye_style" name="eye_style"
-                class="w-full h-10 pl-3 pr-6 mt-2 text-base text-gray-700  border shadow-sm border-gray-300 rounded appearance-none  focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-transparent">
-                <option value="">Select Eye Style</option>
-                <option value="square">Square</option>
-                <option value="circle">Circle</option>
-
-              </select>
-            </div>
-            <div>
-              <label for="qr_style" class="pb-12 text-base">QR Style</label>
-              <select id="qr_style" name="qr_style"
-                class="w-full h-10 pl-3 pr-6 mt-2 text-base text-gray-700  border shadow-sm border-gray-300 rounded appearance-none  focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-transparent">
-                <option value="">Select Style</option>
-                <option value="square">Square</option>
-                <option value="dot">Dot</option>
-                <option value="round">Round</option>
-              </select>
-            </div>
-            <div>
-              <label for="margin" class="pb-12 text-base">QR Margin</label>
-              <input type="number" min="1" max="100" value='1' step="1" id="margin" name="margin"
-                placeholder="enter number"
-                class="w-full h-10 pl-3 pr-6 mt-2 text-base text-gray-700  border shadow-sm border-gray-300 rounded appearance-none  focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-transparent" />
-            </div>
-
-            <div>
-              <label for="qr_color" class="pb-12 text-base">QR Color</label>
-              <input type="color" id="qr_color" name="qr_color"
-                class="w-full h-10 pl-3 pr-6 mt-2 text-base text-gray-700  border shadow-sm border-gray-300 rounded appearance-none  focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-transparent" />
-            </div>
-
-          </div>
-
-          <hr>
-
-          <div class="grid grid-cols-2 gap-4  my-6">
-            <div>
-              <label for="qr_background_color" class="pb-12 text-base">QR Background Color</label>
-              <input type="color" id="qr_background_color" name="qr_background_color"
-                class="w-full h-10 pl-3 pr-6 mt-2 text-base text-gray-700  border shadow-sm border-gray-300 rounded appearance-none  focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-transparent" />
-            </div>
-
-            <div>
-              <label for="qr_background_transparent" class="pb-12 text-base">QR Background
-                transparent</label>
-              <input type="number" min="1" max="100" step="1" id="qr_background_transparent"
-                name="qr_background_transparent"
-                class="w-full h-10 pl-3 pr-6 mt-2 text-base text-gray-700  border shadow-sm border-gray-300 rounded appearance-none  focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-transparent" />
-            </div>
-          </div>
-
-          <hr>
-
-          {{-- EYE COLORS  --}}
-          <div>
-            <div class="grid grid-cols-2 gap-4  my-6">
-              <div>
-                <label for="qr_eye_color_inner_0" class="pb-12 text-base">QR Eye Color inner
-                  0</label>
-                <input type="color" id="qr_eye_color_inner_0" name="qr_eye_color_inner_0"
-                  class="w-full h-10 pl-3 pr-6 mt-2 text-base text-gray-700  border shadow-sm border-gray-300 rounded appearance-none  focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-transparent" />
-              </div>
-              <div>
-                <label for="qr_eye_color_outer_0" class="pb-12 text-base">QR Eye Color outer
-                  0</label>
-                <input type="color" id="qr_eye_color_outer_0" name="qr_eye_color_outer_0"
-                  class="w-full h-10 pl-3 pr-6 mt-2 text-base text-gray-700  border shadow-sm border-gray-300 rounded appearance-none  focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-transparent" />
-              </div>
-            </div>
-
-            <div class="grid grid-cols-2 gap-4  my-6">
-              <div>
-                <label for="qr_eye_color_inner_1" class="pb-12 text-base">QR Eye Color inner
-                  1</label>
-                <input type="color" id="qr_eye_color_inner_1" name="qr_eye_color_inner_1"
-                  class="w-full h-10 pl-3 pr-6 mt-2 text-base text-gray-700  border shadow-sm border-gray-300 rounded appearance-none  focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-transparent" />
-              </div>
-              <div>
-                <label for="qr_eye_color_outer_1" class="pb-12 text-base">QR Eye Color outer
-                  1</label>
-                <input type="color" id="qr_eye_color_outer_1" name="qr_eye_color_outer_1"
-                  class="w-full h-10 pl-3 pr-6 mt-2 text-base text-gray-700  border shadow-sm border-gray-300 rounded appearance-none  focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-transparent" />
-              </div>
-            </div>
-
-            <div class="grid grid-cols-2 gap-4  my-6">
-              <div>
-                <label for="qr_eye_color_inner_2" class="pb-12 text-base">QR Eye Color inner
-                  2</label>
-                <input type="color" id="qr_eye_color_inner_2" name="qr_eye_color_inner_2"
-                  class="w-full h-10 pl-3 pr-6 mt-2 text-base text-gray-700  border shadow-sm border-gray-300 rounded appearance-none  focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-transparent" />
-              </div>
-              <div>
-                <label for="qr_eye_color_outer_2" class="pb-12 text-base">QR Eye Color outer
-                  2</label>
-                <input type="color" id="qr_eye_color_outer_2" name="qr_eye_color_outer_2"
-                  class="w-full h-10 pl-3 pr-6 mt-2 text-base text-gray-700  border shadow-sm border-gray-300 rounded appearance-none  focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-transparent" />
-              </div>
-            </div>
-
-
-
-          </div>
-
-          <hr>
-
-          {{-- QR GRADINATE  --}}
-          <div class="grid grid-cols-3 gap-4  my-6">
-            <div>
-              <label for="qr_gradient_start" class="pb-12 text-base">QR Gradient Start</label>
-              <input type="color" id="qr_gradient_start" name="qr_gradient_start"
-                class="w-full h-10 pl-3 pr-6 mt-2 text-base text-gray-700  border shadow-sm border-gray-300 rounded appearance-none  focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-transparent" />
-            </div>
-            <div>
-              <label for="qr_gradient_end" class="pb-12 text-base">QR Gradient End</label>
-              <input type="color" id="qr_gradient_end" name="qr_gradient_end"
-                class="w-full h-10 pl-3 pr-6 mt-2 text-base text-gray-700  border shadow-sm border-gray-300 rounded appearance-none  focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-transparent" />
-            </div>
-
-            <div>
-              <label for="qr_gradient_type" class="pb-12 text-base">QR Gradient Type</label>
-              <select id="qr_gradient_type" name="qr_gradient_type"
-                class="w-full h-10 pl-3 pr-6 mt-2 text-base text-gray-700  border shadow-sm border-gray-300 rounded appearance-none  focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-transparent">
-                <option value="">Select type</option>
-                <option value="vertical">Vertical</option>
-                <option value="horizontal">Horizontal</option>
-                <option value="diagonal">Diagonal</option>
-                <option value="inverse_diagonal">Inverse Diagonal</option>
-                <option value="radial"></option>
-              </select>
-            </div>
-          </div>
 
           <button type="submit"
             class="py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-1/3 transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-1 focus:ring-offset-1  rounded ">
@@ -241,35 +35,20 @@
           </button>
         </form>
       </div>
-      <div class="p-12 md:w-1/3 flex flex-col items-center">
+      <div class="p-12 md:w-1/3 ">
 
-        <h2 class="sm:text-3xl text-2xl title-font font-medium text-gray-900 mt-4 mb-4">Qr Code
-          Preview</h2>
+        <h2 class="sm:text-3xl text-2xl text-center title-font font-medium text-gray-900 mt-4 mb-4">
+          Qr Code Preview 👇👇</h2>
 
-        {{-- @if (session('code'))
-        {!! session('code') !!}
-        <a href="{{  session('code')  }}">download</a>
-        @endif --}}
-        @if (session('code'))
-        @if (pathinfo(session('code'))['extension'] === 'eps')
-        QR Code available, <a href="{{ asset('qr_code/' . session('code')) }}">click here</a> to
-        download
-        it.
-        @else
-        <img src="{{ asset('qr_code/' . session('code')) }}" alt="{{ session('code') }}"
-          class="img-fluid">
+        {!! QrCode::SMS('0750 7100317', 'Body of the message') !!}
 
-        <a download="{{ session('code') }}" href="{{ asset('qr_code/' . session('code')) }}"
-          target="_blank">click here</a>
-
-        {{-- <a href="{{ asset('qr_code/' . session('code')) }}"><button
-          class="py-2 px-4 bg-green-500" download target="_blank">
-          Download Qr Code</button></a> --}}
-        @endif
-        @endif
+        <div class=" mx-auto" style="max-width: 200px; hieght: 200px;">
+          @if (session('code'))
+          {!! session('code') !!}
+          @endif
+        </div>
       </div>
     </div>
   </div>
 </section>
-
 @endsection

@@ -24,7 +24,7 @@ class QrcodeController extends Controller
     //get request inputs
     $qr_name = $request->name;
     $qr_body = $request->body;
-    $qr_size = $request->size;
+    $qr_size = $request->size ?? 200;
     $qr_correction = $request->correction ?? "H";
     $qr_encoding = $request->encoding ?? 'UTF-8';
     $qr_img_type = $request->type ?? 'png';
@@ -122,14 +122,27 @@ class QrcodeController extends Controller
   {
     return 'its here';
   }
+
   public function qrPhone()
   {
     return view('qrcode.phone');
   }
 
-  public function qrPhoneBuilder()
+  public function qrPhoneBuilder(Request $request)
   {
-    return 'its here';
+
+    $request->validate([
+      'phone' => 'required'
+    ]);
+
+    $code = QrCode::size(200)->phoneNumber($request->phone);
+
+    // return $code;
+    return back()->with([
+      'code' => $code,
+      'message' => 'QR Code Succsefully Genrated',
+      'type' => 'success',
+    ]);
   }
 
   public function qrSms()
@@ -137,9 +150,21 @@ class QrcodeController extends Controller
     return view('qrcode.sms');
   }
 
-  public function qrSmsBuilder()
+  public function qrSmsBuilder(Request $request)
   {
-    return 'its here';
+
+    $request->validate([
+      'phone' => 'required',
+      'body' => 'required'
+    ]);
+    //Creates a text message with the number and message filled in.
+    $code = QrCode::size(200)->SMS($request->phone, $request->body);
+    // return $code;
+    return back()->with([
+      'code' => $code,
+      'message' => 'QR Code Succsefully Genrated',
+      'type' => 'success',
+    ]);
   }
   public function qrGeo()
   {
